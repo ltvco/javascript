@@ -1,4 +1,4 @@
-# Airbnb JavaScript Style Guide() {
+# BeenVerified JavaScript Style Guide() {
 
 *A mostly reasonable approach to JavaScript*
 
@@ -1262,15 +1262,15 @@ Other Style Guides
 
     ```javascript
     // bad
-    const AirbnbStyleGuide = require('./AirbnbStyleGuide');
-    module.exports = AirbnbStyleGuide.es6;
+    const BeenVerifiedStyleGuide = require('./BeenVerifiedStyleGuide');
+    module.exports = BeenVerifiedStyleGuide.es6;
 
     // ok
-    import AirbnbStyleGuide from './AirbnbStyleGuide';
-    export default AirbnbStyleGuide.es6;
+    import BeenVerifiedStyleGuide from './BeenVerifiedStyleGuide';
+    export default BeenVerifiedStyleGuide.es6;
 
     // best
-    import { es6 } from './AirbnbStyleGuide';
+    import { es6 } from './BeenVerifiedStyleGuide';
     export default es6;
     ```
 
@@ -1281,10 +1281,10 @@ Other Style Guides
 
     ```javascript
     // bad
-    import * as AirbnbStyleGuide from './AirbnbStyleGuide';
+    import * as BeenVerifiedStyleGuide from './BeenVerifiedStyleGuide';
 
     // good
-    import AirbnbStyleGuide from './AirbnbStyleGuide';
+    import BeenVerifiedStyleGuide from './BeenVerifiedStyleGuide';
     ```
 
   <a name="modules--no-export-from-import"></a><a name="10.3"></a>
@@ -1295,11 +1295,11 @@ Other Style Guides
     ```javascript
     // bad
     // filename es6.js
-    export { es6 as default } from './AirbnbStyleGuide';
+    export { es6 as default } from './BeenVerifiedStyleGuide';
 
     // good
     // filename es6.js
-    import { es6 } from './AirbnbStyleGuide';
+    import { es6 } from './BeenVerifiedStyleGuide';
     export default es6;
     ```
 
@@ -2495,14 +2495,14 @@ Other Style Guides
 
     ```javascript
     // bad
-    import { es6 } from './AirbnbStyleGuide';
+    import { es6 } from './BeenVerifiedStyleGuide';
       // ...
     export default es6;
     ```
 
     ```javascript
     // bad
-    import { es6 } from './AirbnbStyleGuide';
+    import { es6 } from './BeenVerifiedStyleGuide';
       // ...
     export default es6;↵
     ↵
@@ -2510,7 +2510,7 @@ Other Style Guides
 
     ```javascript
     // good
-    import { es6 } from './AirbnbStyleGuide';
+    import { es6 } from './BeenVerifiedStyleGuide';
       // ...
     export default es6;↵
     ```
@@ -3259,12 +3259,12 @@ Other Style Guides
   - [23.8](#naming--PascalCase-singleton) Use PascalCase when you export a constructor / class / singleton / function library / bare object.
 
     ```javascript
-    const AirbnbStyleGuide = {
+    const BeenVerifiedStyleGuide = {
       es6: {
       },
     };
 
-    export default AirbnbStyleGuide;
+    export default BeenVerifiedStyleGuide;
     ```
 
   <a name="naming--Acronyms-and-Initialisms"></a>
@@ -3603,7 +3603,7 @@ Other Style Guides
     - Whichever testing framework you use, you should be writing tests!
     - Strive to write many small pure functions, and minimize where mutations occur.
     - Be cautious about stubs and mocks - they can make your tests more brittle.
-    - We primarily use [`mocha`](https://www.npmjs.com/package/mocha) and [`jest`](https://www.npmjs.com/package/jest) at Airbnb. [`tape`](https://www.npmjs.com/package/tape) is also used occasionally for small, separate modules.
+    - We primarily use [`mocha`](https://www.npmjs.com/package/mocha) and [`jest`](https://www.npmjs.com/package/jest) at BeenVerified. [`tape`](https://www.npmjs.com/package/tape) is also used occasionally for small, separate modules.
     - 100% test coverage is a good goal to strive for, even if it’s not always practical to reach it.
     - Whenever you fix a bug, _write a regression test_. A bug fixed without a regression test is almost certainly going to break again in the future.
 
@@ -3843,7 +3843,7 @@ Other Style Guides
 
 (The MIT License)
 
-Copyright (c) 2012 Airbnb
+Copyright (c) 2018 BeenVerified
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
