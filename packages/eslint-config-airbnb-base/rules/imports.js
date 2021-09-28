@@ -79,6 +79,7 @@ module.exports = {
         'test-*.{js,jsx}', // repos with multiple top-level test files
         '**/*{.,_}{test,spec}.{js,jsx}', // tests where the extension or filename suffix denotes that it is a test
         '**/jest.config.js', // jest config
+        '**/jest.setup.js', // jest setup
         '**/vue.config.js', // vue-cli config
         '**/webpack.config.js', // webpack config
         '**/webpack.config.*.js', // webpack config
@@ -89,6 +90,8 @@ module.exports = {
         '**/Gruntfile{,.js}', // grunt config
         '**/protractor.conf.js', // protractor config
         '**/protractor.conf.*.js', // protractor config
+        '**/karma.conf.js', // karma config
+        '**/.eslintrc.js' // eslint config
       ],
       optionalDependencies: false,
     }],
@@ -221,17 +224,21 @@ module.exports = {
     // https://github.com/benmosher/eslint-plugin-import/blob/44a038c06487964394b1e15b64f3bd34e5d40cde/docs/rules/no-default-export.md
     'import/no-default-export': 'off',
 
+    // Prohibit named exports. this is a terrible rule, do not use it.
+    // https://github.com/benmosher/eslint-plugin-import/blob/1ec80fa35fa1819e2d35a70e68fb6a149fb57c5e/docs/rules/no-named-export.md
+    'import/no-named-export': 'off',
+
     // Forbid a module from importing itself
     // https://github.com/benmosher/eslint-plugin-import/blob/44a038c06487964394b1e15b64f3bd34e5d40cde/docs/rules/no-self-import.md
     'import/no-self-import': 'error',
 
     // Forbid cyclical dependencies between modules
     // https://github.com/benmosher/eslint-plugin-import/blob/d81f48a2506182738409805f5272eff4d77c9348/docs/rules/no-cycle.md
-    'import/no-cycle': ['error', { maxDepth: Infinity }],
+    'import/no-cycle': ['error', { maxDepth: '∞' }],
 
     // Ensures that there are no useless path segments
     // https://github.com/benmosher/eslint-plugin-import/blob/ebafcbf59ec9f653b2ac2a0156ca3bcba0a7cf57/docs/rules/no-useless-path-segments.md
-    'import/no-useless-path-segments': 'error',
+    'import/no-useless-path-segments': ['error', { commonjs: true }],
 
     // dynamic imports require a leading comment with a webpackChunkName
     // https://github.com/benmosher/eslint-plugin-import/blob/ebafcbf59ec9f653b2ac2a0156ca3bcba0a7cf57/docs/rules/dynamic-import-chunkname.md
@@ -243,5 +250,26 @@ module.exports = {
     // Use this rule to prevent imports to folders in relative parent paths.
     // https://github.com/benmosher/eslint-plugin-import/blob/c34f14f67f077acd5a61b3da9c0b0de298d20059/docs/rules/no-relative-parent-imports.md
     'import/no-relative-parent-imports': 'off',
+
+    // Reports modules without any exports, or with unused exports
+    // https://github.com/benmosher/eslint-plugin-import/blob/f63dd261809de6883b13b6b5b960e6d7f42a7813/docs/rules/no-unused-modules.md
+    // TODO: enable, semver-major
+    'import/no-unused-modules': ['off', {
+      ignoreExports: [],
+      missingExports: true,
+      unusedExports: true,
+    }],
+
+    // Reports the use of import declarations with CommonJS exports in any module except for the main module.
+    // https://github.com/benmosher/eslint-plugin-import/blob/1012eb951767279ce3b540a4ec4f29236104bb5b/docs/rules/no-import-module-exports.md
+    // TODO: enable, semver-major
+    'import/no-import-module-exports': ['off', {
+      exceptions: [],
+    }],
+
+    // Use this rule to prevent importing packages through relative paths.
+    // https://github.com/benmosher/eslint-plugin-import/blob/1012eb951767279ce3b540a4ec4f29236104bb5b/docs/rules/no-relative-packages.md
+    // TODO: enable, semver-major
+    'import/no-relative-packages': 'off',
   },
 };

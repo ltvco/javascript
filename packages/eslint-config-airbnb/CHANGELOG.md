@@ -1,3 +1,71 @@
+18.2.1 / 2020-11-06
+==================
+ - [patch] remove deprecated `jsx-a11y/accessible-emoji` rule (#2322)
+ - [patch] Fix ignoreNonDOM typo in jsx-a11y/aria-role rule (#2318)
+ - [patch] Fixed `handle` and `on` ordering in `sort-comp` rule (#2287)
+ - [deps] update `eslint-plugin-jsx-a11y`, `eslint-plugin-react`
+ - [deps] update `eslint-config-airbnb-base`, `object.assign`
+ - [dev deps] update `@babel/runtime`, `eslint-find-rules`, `eslint-plugin-import`, `eslint-plugin-jsx-a11y`, `eslint-plugin-react`
+
+18.2.0 / 2020-06-18
+==================
+ - [new] add `eslint` `v7` (#2240)
+ - [minor] Allow using `eslint-plugin-react-hooks` v3 and v4 (#2235, #2207)
+ - [minor] Fix typo in no-multiple-empty-lines rule (#2168)
+ - [patch] set `explicitSpread` to ignore for `react/jsx-props-no-spreading` (#2237)
+ - [patch] relax `eslint-plugin-react-hooks` down to v2.3, due to a controversial change in v2.5
+ - [readme] fix typo (#2194)
+ - [deps] update `eslint-config-airbnb-base`, `eslint-plugin-jsx-a11y`, `eslint-plugin-import`, `eslint-plugin-react`, `babel-preset-airbnb`, `eslint-find-rules`, `in-publish`, `tape`, `object.entries`
+ - [tests] fix for eslint 7
+
+18.1.0 / 2020-03-12
+==================
+ - [minor] Support eslint-plugin-react-hooks@2 (#2090)
+ - [minor] add new disabled rules, update eslint
+ - [fix] `whitespace`: only set erroring rules to "warn"
+ - [patch] Remove duplicate `componentDidCatch` (#2108)
+ - [patch] Add `static-variables` to `sort-comp` rule (#2109)
+ - [readme] clarify hooks section in readme (#2074)
+ - [deps] update `eslint`, `eslint-plugin-react`, `eslint-plugin-react-hooks`, `eslint-config-airbnb-base`, `eslint-plugin-import`, `object.entries`
+ - [dev deps] update `@babel/runtime`, `babel-preset-airbnb`, `safe-publish-latest`, `tape`
+ - [tests] re-enable eslint rule `prefer-destructuring` internally (#2110)
+ - [tests] fix eslint errors from c66cfc3 (#2112)
+
+18.0.1 / 2019-08-13
+==================
+ - [patch] `react/state-in-constructor`: fix incorrect configuration
+
+18.0.0 / 2019-08-10
+==================
+ - [breaking] add eslint v6, drop eslint v4
+ - [deps] [breaking] update `eslint-config-airbnb-base`, `eslint-plugin-react`, `eslint-find-rules`, `eslint-plugin-import`
+ - [breaking] Remove rules/strict from 'extends' (#1962)
+ - [breaking] set react version to "detect"
+ - [breaking] disable `label-has-for`; enable `control-has-associated-label`
+ - [breaking] enable `react/jsx-props-no-spreading`
+ - [breaking] enable `react/jsx-fragments`
+ - [minor] enable `react/static-property-placement`
+ - [minor] enable `react/state-in-constructor`
+ - [minor] enable `react/jsx-curly-newline`
+ - [react] Add missing/unsafe lifecycle methods to react/sort-comp rule (#2043)
+ - [react] add componentDidCatch to lifecycle for react/sort-comp (#2060)
+ - [react] add `react-hooks` plugin (#2022)
+ - [dev deps] update babel-related deps to latest
+ - [tests] only run tests in non-lint per-package travis job
+ - [tests] use `eclint` instead of `editorconfig-tools`
+ - [meta] add disabled config for new react and a11y rules
+
+
+17.1.1 / 2019-07-01
+==================
+ - [patch] Turn off `react/no-multi-comp` (#2006)
+ - [patch] extend `no-underscore-dangle` to allow for redux dev tools in the main config instead (#1996)
+ - [meta] add disabled `jsx-fragments` rule
+ - [deps] update `eslint-config-airbnb-base`, `object.entries`, `eslint-plugin-import`, `eslint-plugin-react`, `eslint-plugin-jsx-a11y`, `babel-preset-airbnb`, `tape` (#2005, etc)
+ - [docs] correct JavaScript capitalization (#2046)
+ - [docs] fix docs for whitespace config (#1914, #1871)
+ - [readme] Improve eslint config setup instructions for yarn (#2001)
+
 17.1.0 / 2018-08-13
 ==================
 - [new] add eslint v5 support

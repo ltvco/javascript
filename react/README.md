@@ -28,6 +28,7 @@ This style guide is mostly based on the standards that are currently prevalent i
     - However, multiple [Stateless, or Pure, Components](https://facebook.github.io/react/docs/reusable-components.html#stateless-functions) are allowed per file. eslint: [`react/no-multi-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-multi-comp.md#ignorestateless).
   - Always use JSX syntax.
   - Do not use `React.createElement` unless you’re initializing the app from a file that is not JSX.
+  - [`react/forbid-prop-types`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/forbid-prop-types.md) will allow `arrays` and `objects` only if it is explicitly noted what `array` and `object` contains, using `arrayOf`, `objectOf`, or `shape`.
 
 ## Class vs `React.createClass` vs stateless
 
@@ -110,6 +111,7 @@ This style guide is mostly based on the standards that are currently prevalent i
     // good
     import Footer from './Footer';
     ```
+
   - **Higher-order Component Naming**: Use a composite of the higher-order component’s name and the passed-in component’s name as the `displayName` on the generated component. For example, the higher-order component `withFoo()`, when passed a component `Bar` should produce a component with a `displayName` of `withFoo(Bar)`.
 
     > Why? A component’s `displayName` may be used by developer tools or in error messages, and having a value that clearly expresses this relationship helps people understand what is happening.
@@ -212,6 +214,27 @@ This style guide is mostly based on the standards that are currently prevalent i
 
     // good
     {showButton && <Button />}
+
+    // good
+    {someReallyLongConditional
+      && anotherLongConditional
+      && (
+        <Foo
+          superLongParam="bar"
+          anotherSuperLongParam="baz"
+        />
+      )
+    }
+
+    // good
+    {someConditional ? (
+      <Foo />
+    ) : (
+      <Foo
+        superLongParam="bar"
+        anotherSuperLongParam="baz"
+      />
+    )}
     ```
 
 ## Quotes
@@ -265,7 +288,7 @@ This style guide is mostly based on the standards that are currently prevalent i
 
 ## Props
 
-  - Always use camelCase for prop names.
+  - Always use camelCase for prop names, or PascalCase if the prop value is a React component.
 
     ```jsx
     // bad
@@ -278,6 +301,7 @@ This style guide is mostly based on the standards that are currently prevalent i
     <Foo
       userName="hello"
       phoneNumber={12345678}
+      Component={SomeComponent}
     />
     ```
 
@@ -446,13 +470,13 @@ We don’t recommend using indexes for keys if the order of items may change.
   ```jsx
   // bad
   render() {
-    const { irrelevantProp, ...relevantProps  } = this.props;
+    const { irrelevantProp, ...relevantProps } = this.props;
     return <WrappedComponent {...this.props} />
   }
 
   // good
   render() {
-    const { irrelevantProp, ...relevantProps  } = this.props;
+    const { irrelevantProp, ...relevantProps } = this.props;
     return <WrappedComponent {...relevantProps} />
   }
   ```
@@ -513,7 +537,7 @@ We don’t recommend using indexes for keys if the order of items may change.
     <Foo variant="stuff" />
     ```
 
-  - If your component has multi-line properties, close its tag on a new line. eslint: [`react/jsx-closing-bracket-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md)
+  - If your component has multiline properties, close its tag on a new line. eslint: [`react/jsx-closing-bracket-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md)
 
     ```jsx
     // bad
@@ -530,7 +554,7 @@ We don’t recommend using indexes for keys if the order of items may change.
 
 ## Methods
 
-  - Use arrow functions to close over local variables.
+  - Use arrow functions to close over local variables. It is handy when you need to pass additional data to an event handler. Although, make sure they [do not massively hurt performance](https://www.bignerdranch.com/blog/choosing-the-best-approach-for-react-event-handlers/), in particular when passed to custom components that might be PureComponents, because they will trigger a possibly needless rerender every time.
 
     ```jsx
     function ItemList(props) {
@@ -539,7 +563,7 @@ We don’t recommend using indexes for keys if the order of items may change.
           {props.items.map((item, index) => (
             <Item
               key={item.key}
-              onClick={() => doSomethingWith(item.name, index)}
+              onClick={(event) => { doSomethingWith(event, item.name, index); }}
             />
           ))}
         </ul>
@@ -549,7 +573,7 @@ We don’t recommend using indexes for keys if the order of items may change.
 
   - Bind event handlers for the render method in the constructor. eslint: [`react/jsx-no-bind`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-bind.md)
 
-    > Why? A bind call in the render path creates a brand new function on every single render.
+    > Why? A bind call in the render path creates a brand new function on every single render. Do not use arrow functions in class fields, because it makes them [challenging to test and debug, and can negatively impact performance](https://medium.com/@charpeni/arrow-functions-in-class-properties-might-not-be-as-great-as-we-think-3b3551c440b1), and because conceptually, class fields are for data, not logic.
 
     ```jsx
     // bad
@@ -560,6 +584,17 @@ We don’t recommend using indexes for keys if the order of items may change.
 
       render() {
         return <div onClick={this.onClickDiv.bind(this)} />;
+      }
+    }
+
+    // very bad
+    class extends React.Component {
+      onClickDiv = () => {
+        // do stuff
+      }
+
+      render() {
+        return <div onClick={this.onClickDiv} />
       }
     }
 
@@ -632,7 +667,8 @@ We don’t recommend using indexes for keys if the order of items may change.
   1. `componentWillUpdate`
   1. `componentDidUpdate`
   1. `componentWillUnmount`
-  1. *clickHandlers or eventHandlers* like `onClickSubmit()` or `onChangeDescription()`
+  1. *event handlers starting with 'handle'* like `handleSubmit()` or `handleChangeDescription()`
+  1. *event handlers starting with 'on'* like `onClickSubmit()` or `onChangeDescription()`
   1. *getter methods for `render`* like `getSelectReason()` or `getFooterContent()`
   1. *optional render methods* like `renderNavigation()` or `renderProfilePicture()`
   1. `render`
@@ -705,7 +741,7 @@ We don’t recommend using indexes for keys if the order of items may change.
 
   This JSX/React style guide is also available in other languages:
 
-  - ![cn](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/China.png) **Chinese (Simplified)**: [JasonBoy/javascript](https://github.com/JasonBoy/javascript/tree/master/react)
+  - ![cn](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/China.png) **Chinese (Simplified)**: [jhcccc/javascript](https://github.com/jhcccc/javascript/tree/master/react)
   - ![tw](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Taiwan.png) **Chinese (Traditional)**: [jigsawye/javascript](https://github.com/jigsawye/javascript/tree/master/react)
   - ![es](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Spain.png) **Español**: [agrcrobles/javascript](https://github.com/agrcrobles/javascript/tree/master/react)
   - ![jp](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Japan.png) **Japanese**: [mitsuruog/javascript-style-guide](https://github.com/mitsuruog/javascript-style-guide/tree/master/react)

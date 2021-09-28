@@ -21,9 +21,7 @@ module.exports = {
 
     // require parens in arrow function arguments
     // https://eslint.org/docs/rules/arrow-parens
-    'arrow-parens': ['error', 'as-needed', {
-      requireForBlockBody: true,
-    }],
+    'arrow-parens': ['error', 'always'],
 
     // require space before/after arrow function's arrow
     // https://eslint.org/docs/rules/arrow-spacing
@@ -61,6 +59,16 @@ module.exports = {
     // disallow symbol constructor
     // https://eslint.org/docs/rules/no-new-symbol
     'no-new-symbol': 'error',
+
+    // Disallow specified names in exports
+    // https://eslint.org/docs/rules/no-restricted-exports
+    // TODO enable, semver-minor, once eslint v7 is required (which is major)
+    'no-restricted-exports': ['off', {
+      restrictedNamedExports: [
+        'default', // use `export default` to provide a default export
+        'then', // this will cause tons of confusion when your module is dynamically `import()`ed
+      ],
+    }],
 
     // disallow specific imports
     // https://eslint.org/docs/rules/no-restricted-imports
@@ -120,7 +128,7 @@ module.exports = {
       },
       AssignmentExpression: {
         array: true,
-        object: true,
+        object: false,
       },
     }, {
       enforceForRenamedProperties: false,
@@ -138,7 +146,7 @@ module.exports = {
     // https://eslint.org/docs/rules/prefer-rest-params
     'prefer-rest-params': 'error',
 
-    // suggest using the spread operator instead of .apply()
+    // suggest using the spread syntax instead of .apply()
     // https://eslint.org/docs/rules/prefer-spread
     'prefer-spread': 'error',
 
@@ -158,6 +166,7 @@ module.exports = {
     // https://eslint.org/docs/rules/sort-imports
     'sort-imports': ['off', {
       ignoreCase: false,
+      ignoreDeclarationSort: false,
       ignoreMemberSort: false,
       memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
     }],
